@@ -14,14 +14,14 @@
 
     <groupId>org.obiba.genobyte</groupId>
     <artifactId>genobyte-infinium</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
 
     <dependencies>
 
         <dependency>
             <groupId>org.obiba.genobyte</groupId>
-            <artifactId>genobyte</artifactId>
-            <version>1.4-SNAPSHOT</version>
+            <artifactId>genobyte-core</artifactId>
+            <version>2.0-SNAPSHOT</version>
         </dependency>
 
         <!-- This is an optional GenoByte dependency, but our app requires it -->
@@ -91,5 +91,19 @@
         </plugins>
 
     </build>
+
+    <repositories>
+        <repository>
+            <id>obiba.org</id>
+            <name>Obiba Maven 2.x Repository</name>
+            <url>http://repo.obiba.org/repo</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
 </project>
