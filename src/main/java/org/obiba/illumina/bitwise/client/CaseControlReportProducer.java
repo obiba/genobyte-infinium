@@ -1,20 +1,20 @@
 /*******************************************************************************
- * Copyright 2007(c) Génome Québec. All rights reserved.
- * 
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
+ * <p>
  * This file is part of GenoByte.
- * 
+ * <p>
  * GenoByte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
- * 
+ * <p>
  * GenoByte is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ * <p>
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.obiba.illumina.bitwise.client;
 
@@ -33,7 +33,6 @@ import org.obiba.illumina.bitwise.AssayStore;
 import org.obiba.illumina.bitwise.CaseControlReport;
 import org.obiba.illumina.bitwise.InfiniumGenotypingStore;
 
-
 public class CaseControlReportProducer implements ReportProducer {
 
   public boolean requiresOpenStore() {
@@ -46,7 +45,7 @@ public class CaseControlReportProducer implements ReportProducer {
     CsvReport report = new CaseControlReport();
     for(String outputField : def.getCcStat().getOutputParams()) {
       report.addPooledField(outputField);
-    }  
+    }
     report.setOutput(output);
 
     if(parameters == null || parameters.length < 2) {
@@ -70,9 +69,9 @@ public class CaseControlReportProducer implements ReportProducer {
 
     QueryExecution assaysQuery = ReportProducerUtil.resolveAssayQuery(context, parameters, 2);
 
-    AssayStore assays = ((InfiniumGenotypingStore)context.getStore()).getAssayRecordStore();
+    AssayStore assays = ((InfiniumGenotypingStore) context.getStore()).getAssayRecordStore();
 
-    StatsPool<Integer,String> ccStatsPool = new StatsPool<Integer, String>(assays, def);
+    StatsPool<Integer, String> ccStatsPool = new StatsPool<Integer, String>(assays, def);
 
     Map<String, Object> params = new HashMap<String, Object>();
     params.put(CaseControlFrequencies.CASES_MASK_PARAMETER, casesQuery.getResult());
@@ -83,7 +82,9 @@ public class CaseControlReportProducer implements ReportProducer {
       ccStatsPool.setRecordMask(assaysQuery.getResult());
     }
 
-    context.getOutput().println("Calculating Case-Control report on " + casesQuery.count() +" cases and " + controlsQuery.count() + " controls for " + ccStatsPool.getRecordMask().count() + " SNPs");
+    context.getOutput().println(
+        "Calculating Case-Control report on " + casesQuery.count() + " cases and " + controlsQuery.count() +
+            " controls for " + ccStatsPool.getRecordMask().count() + " SNPs");
     long start = System.currentTimeMillis();
     ccStatsPool.calculate();
     long end = System.currentTimeMillis();
@@ -91,12 +92,13 @@ public class CaseControlReportProducer implements ReportProducer {
     context.getOutput().println("Producing report.");
     report.digest(ccStatsPool);
   }
-  
+
   public String getReportType() {
     return "case-control";
   }
-  
+
   private void help(CliContext context) {
-    context.getOutput().println("You must provide at least two query references to produce the case-control report: one for each sub-population. ie: \"--report case-control out.csv q4 q8\" where q4 is the query reference for the cases population and q8 is the controls population. You may also specify a third query reference to produce the report on a subset of SNPs.");
+    context.getOutput().println(
+        "You must provide at least two query references to produce the case-control report: one for each sub-population. ie: \"--report case-control out.csv q4 q8\" where q4 is the query reference for the cases population and q8 is the controls population. You may also specify a third query reference to produce the report on a subset of SNPs.");
   }
 }

@@ -1,20 +1,20 @@
 /*******************************************************************************
- * Copyright 2007(c) Génome Québec. All rights reserved.
- * 
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
+ * <p>
  * This file is part of GenoByte.
- * 
+ * <p>
  * GenoByte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
- * 
+ * <p>
  * GenoByte is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ * <p>
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.obiba.illumina.io;
 
@@ -32,27 +32,31 @@ import java.util.List;
 import java.util.Map;
 
 public class SampleSheetFile {
-  
+
   private static final String SEPARATOR = ",";
+
   private static final String HEADER_TOKEN = "[Header]";
+
   private static final String MANIFESTS_TOKEN = "[Manifests]";
+
   private static final String DATA_TOKEN = "[Data]";
 
   private Map<String, String> headerValues_ = new HashMap<String, String>();
-  
+
   private List<String> manifests_ = new LinkedList<String>();
+
   private Map<String, String> manifestFiles_ = new HashMap<String, String>();
-  
+
   private List<SampleSheetFileEntry> samples_ = new LinkedList<SampleSheetFileEntry>();
 
   public SampleSheetFile(File file) throws IOException {
     this(new FileReader(file));
   }
-  
+
   public SampleSheetFile(InputStream is) throws IOException {
     this(new InputStreamReader(is));
   }
-  
+
   public SampleSheetFile(Reader r) throws IOException {
     read(new LineNumberReader(r));
   }
@@ -76,14 +80,14 @@ public class SampleSheetFile {
   private void read(LineNumberReader lnr) throws IOException {
     // Skip everything before header token
     String line = lnr.readLine();
-    while(line != null && line.toLowerCase().startsWith(HEADER_TOKEN.toLowerCase()) == false && line.toLowerCase().startsWith(MANIFESTS_TOKEN.toLowerCase()) == false) {
+    while(line != null && line.toLowerCase().startsWith(HEADER_TOKEN.toLowerCase()) == false &&
+        line.toLowerCase().startsWith(MANIFESTS_TOKEN.toLowerCase()) == false) {
       line = lnr.readLine();
     }
 
     if(line == null) {
-      throw new IOException("Invalid sample sheet. Cannot find "+MANIFESTS_TOKEN+" token.");
+      throw new IOException("Invalid sample sheet. Cannot find " + MANIFESTS_TOKEN + " token.");
     }
-    
 
     // Parse optional [Header] portion
     if(line.toLowerCase().startsWith(HEADER_TOKEN.toLowerCase())) {

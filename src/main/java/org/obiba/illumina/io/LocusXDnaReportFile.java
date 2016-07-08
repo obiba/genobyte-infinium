@@ -1,20 +1,20 @@
 /*******************************************************************************
- * Copyright 2007(c) Génome Québec. All rights reserved.
- * 
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
+ * <p>
  * This file is part of GenoByte.
- * 
+ * <p>
  * GenoByte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
- * 
+ * <p>
  * GenoByte is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ * <p>
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.obiba.illumina.io;
 
@@ -29,29 +29,38 @@ import java.util.Map;
 public final class LocusXDnaReportFile {
 
   private static final String SEPARATOR = ",";
+
   private static final char SEPARATOR_CHAR = ',';
-  
+
   private static final String PROJECT_ID_HEADER = "ProjectId";
+
   private static final String NUMBER_DNA_HEADER = "Number DNA";
+
   private static final String NUMBER_LOCI_HEADER = "Number Loci";
 
   private static final String RECORD_TYPE_SECTION_PREFIX = "oligoPoolId,recordType,data";
+
   private static final String LOCUS_ID_SECTION_PREFIX = "oligoPoolId,GTS LocusId,data";
+
   private static final String DNA_DATA_SECTION_PREFIX = "instituteLabel,plateWell";
-  
+
   private String oligoPoolId_ = null;
+
   private Integer projectId_ = null;
+
   private String projectName_ = null;
+
   private Integer numberDna_ = null;
+
   private Integer numberLoci_ = null;
-  
+
   private int[] gtsLocusId_ = null;
 
   private Map<String, Long> recordTypeFileOffset_ = new HashMap<String, Long>();
 
   private long firstSampleEntryOffset_ = -1;
 
-  private RandomAccessFile raf_ = null; 
+  private RandomAccessFile raf_ = null;
 
   public LocusXDnaReportFile(File file) throws IOException {
     raf_ = new RandomAccessFile(file, "r");
@@ -61,7 +70,7 @@ public final class LocusXDnaReportFile {
   public void close() {
     try {
       raf_.close();
-    } catch (IOException e) {
+    } catch(IOException e) {
       // ignore
     }
   }
@@ -69,19 +78,19 @@ public final class LocusXDnaReportFile {
   public String getOligoPoolId() {
     return oligoPoolId_;
   }
-  
+
   public Integer getProjectId() {
     return projectId_;
   }
-  
+
   public String getProjectName() {
-    return projectName_;    
+    return projectName_;
   }
-  
+
   public Integer getNumberDna() {
     return numberDna_;
   }
-  
+
   public Integer getNumberLoci() {
     return numberLoci_;
   }
@@ -94,19 +103,19 @@ public final class LocusXDnaReportFile {
 
     raf_.seek(position);
     String line = raf_.readLine();
-    return getRecordTypeData(line); 
+    return getRecordTypeData(line);
   }
-  
+
   public int[] getGtsLocusId() {
     return gtsLocusId_;
   }
-  
+
   public Iterator<LocusXDnaReportSampleDataEntry> getEntries() throws IOException {
     return new EntryIterator(this.firstSampleEntryOffset_);
   }
 
   private void preprocess() throws IOException {
-    
+
     String line = raf_.readLine();
     int lineNumber = 1;
     while(line != null && line.startsWith(RECORD_TYPE_SECTION_PREFIX) == false) {
@@ -153,9 +162,9 @@ public final class LocusXDnaReportFile {
     while(line != null && line.startsWith(DNA_DATA_SECTION_PREFIX) == false) {
       // Parse the GTS Locus Ids
       String[] values = line.split(SEPARATOR);
-      gtsLocusId_ = new int[values.length-3];
-      for (int i = 3; i < values.length; i++) {
-        gtsLocusId_[i-3] = Integer.parseInt(values[i]);
+      gtsLocusId_ = new int[values.length - 3];
+      for(int i = 3; i < values.length; i++) {
+        gtsLocusId_[i - 3] = Integer.parseInt(values[i]);
       }
       position = raf_.getFilePointer();
       line = raf_.readLine();
@@ -180,33 +189,33 @@ public final class LocusXDnaReportFile {
     int end = line.indexOf(SEPARATOR_CHAR, start);
     return line.substring(start, end);
   }
-  
+
   /**
    * Extracts the "data" column from the string.
-   * 
+   *
    * @param line the string to parse
    * @return the value of the column "data" in the specified line.
    */
   private String[] getRecordTypeData(String line) {
     // Find the third comma
     int start = line.indexOf(SEPARATOR_CHAR);
-    start = line.indexOf(SEPARATOR_CHAR, start+1);
-    start = line.indexOf(SEPARATOR_CHAR, start+1) + 1;
+    start = line.indexOf(SEPARATOR_CHAR, start + 1);
+    start = line.indexOf(SEPARATOR_CHAR, start + 1) + 1;
     // The rest of the line is the data portion
     return line.substring(start).split(SEPARATOR);
   }
-  
 
   private class EntryIterator implements Iterator<LocusXDnaReportSampleDataEntry> {
-    
+
     private LocusXDnaReportSampleDataEntry next = null;
+
     private long nextPosition = -1;
-    
+
     EntryIterator(long firstIndex) throws IOException {
       nextPosition = firstIndex;
       setNext();
     }
-    
+
     public boolean hasNext() {
       return next != null;
     }
@@ -215,7 +224,7 @@ public final class LocusXDnaReportFile {
       LocusXDnaReportSampleDataEntry temp = next;
       try {
         setNext();
-      } catch (IOException e) {
+      } catch(IOException e) {
         throw new RuntimeException(e);
       }
       return temp;
@@ -224,8 +233,8 @@ public final class LocusXDnaReportFile {
     public void remove() {
       throw new UnsupportedOperationException("cannot remove() entries");
     }
-    
-    private void setNext()throws IOException {
+
+    private void setNext() throws IOException {
       raf_.seek(nextPosition);
       String line1 = raf_.readLine();
       if(line1 == null) {
@@ -238,8 +247,10 @@ public final class LocusXDnaReportFile {
 
       next = new LocusXDnaReportSampleDataEntry(line1, line2);
       if(next.getCalls().length != getNumberLoci()) {
-        System.out.println("calls=["+Arrays.toString(next.getCalls())+"]");
-        throw new IOException("Sample ["+next.getInstituteLabel()+"] has "+next.getCalls().length+" genotypes. Expected "+getNumberLoci());
+        System.out.println("calls=[" + Arrays.toString(next.getCalls()) + "]");
+        throw new IOException(
+            "Sample [" + next.getInstituteLabel() + "] has " + next.getCalls().length + " genotypes. Expected " +
+                getNumberLoci());
       }
     }
   }

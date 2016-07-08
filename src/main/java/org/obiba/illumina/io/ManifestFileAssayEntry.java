@@ -1,20 +1,20 @@
 /*******************************************************************************
- * Copyright 2007(c) Génome Québec. All rights reserved.
- * 
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
+ * <p>
  * This file is part of GenoByte.
- * 
+ * <p>
  * GenoByte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
- * 
+ * <p>
  * GenoByte is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ * <p>
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.obiba.illumina.io;
 
@@ -29,44 +29,64 @@ public class ManifestFileAssayEntry {
 
   /** Unique name of this Illumina probe ie: rs10000092-124_T_R_1136459723 */
   private String ilmnId_ = null;
+
   /** The name of the SNP (usually its rs number from dbSNP) */
   private String snpName_ = null;
+
   /** Illumina Strand: Top or Bot */
   private String ilmnStrand_ = null;
+
   /** The variation: [A/G] */
   private String snp_ = null;
+
   /** The Address A ID (?) */
   private String addressAid_ = null;
+
   /** The Allele A Probe sequence */
   private String alleleAProbeSeq_ = null;
+
   /** The Address B ID (?) */
   private String addressBid_ = null;
+
   /** The Allele B Probe sequence */
   private String alleleBProbeSeq_ = null;
+
   /** The Genome's build number used to design the probe */
   private String genomeBuild_ = null;
+
   /** The chromosome where the SNP is located */
   private String chromosome_ = null;
+
   /** The physical position of the SNP */
   private String mapInfo_ = null;
+
   /** The ploidy SNP (number of alleles) */
   private String ploidy_ = null;
+
   /** The taxon */
   private String species_ = null;
+
   /** The source (dbSNP) */
   private String source_ = null;
+
   /** The source version (dbSNP build) */
   private String sourceVersion_ = null;
+
   /** The source strand (dbSNP strand TOP/BOT) */
   private String sourceStrand_ = null;
+
   /** The source sequence (dbSNP flanks?) */
   private String sourceSeq_ = null;
+
   /** The strand submitted by the customer when ordering an OPA */
   private String customerStrand_ = null;
+
   /** A code sequence from Illumina (?) */
   private String illumiCodeSeq_ = null;
+
   /** The genomic sequence on the Top strand */
   private String topGenomicSeq_ = null;
+
   /** The BeadStudioSet ID (?) */
   private String beadSetId_ = null;
 
@@ -79,53 +99,53 @@ public class ManifestFileAssayEntry {
     ManifestFileAssayEntry newEntry = new ManifestFileAssayEntry();
     newEntry.index_ = index;
     String tokens[] = line.split(ManifestFileAssayEntry.TOKEN_SEPARATOR);
-    for (int i = 0; i < tokens.length; i++) {
+    for(int i = 0; i < tokens.length; i++) {
       String columnName = columns[i];
       String value = tokens[i];
 
-      if ("IlmnID".equalsIgnoreCase(columnName)) {
+      if("IlmnID".equalsIgnoreCase(columnName)) {
         newEntry.ilmnId_ = value;
-      } else if ("Name".equalsIgnoreCase(columnName)) {
+      } else if("Name".equalsIgnoreCase(columnName)) {
         newEntry.snpName_ = value;
-      } else if ("IlmnStrand".equalsIgnoreCase(columnName)) {
+      } else if("IlmnStrand".equalsIgnoreCase(columnName)) {
         newEntry.ilmnStrand_ = value;
-      } else if ("SNP".equalsIgnoreCase(columnName)) {
+      } else if("SNP".equalsIgnoreCase(columnName)) {
         newEntry.snp_ = value;
-      } else if ("AddressA_ID".equalsIgnoreCase(columnName)) {
+      } else if("AddressA_ID".equalsIgnoreCase(columnName)) {
         newEntry.addressAid_ = value;
-      } else if ("AlleleA_ProbeSeq".equalsIgnoreCase(columnName)) {
+      } else if("AlleleA_ProbeSeq".equalsIgnoreCase(columnName)) {
         newEntry.alleleAProbeSeq_ = value;
-      } else if ("AddressB_ID".equalsIgnoreCase(columnName)) {
+      } else if("AddressB_ID".equalsIgnoreCase(columnName)) {
         newEntry.addressBid_ = value;
-      } else if ("AlleleB_ProbeSeq".equalsIgnoreCase(columnName)) {
+      } else if("AlleleB_ProbeSeq".equalsIgnoreCase(columnName)) {
         newEntry.alleleBProbeSeq_ = value;
-      } else if ("Chr".equalsIgnoreCase(columnName)) {
+      } else if("Chr".equalsIgnoreCase(columnName)) {
         newEntry.chromosome_ = value;
-      } else if ("MapInfo".equalsIgnoreCase(columnName)) {
+      } else if("MapInfo".equalsIgnoreCase(columnName)) {
         newEntry.mapInfo_ = value;
-      } else if ("Ploidy".equalsIgnoreCase(columnName)) {
+      } else if("Ploidy".equalsIgnoreCase(columnName)) {
         newEntry.ploidy_ = value;
-      } else if ("Species".equalsIgnoreCase(columnName)) {
+      } else if("Species".equalsIgnoreCase(columnName)) {
         newEntry.species_ = value;
-      } else if ("CustomerStrand".equalsIgnoreCase(columnName)) {
+      } else if("CustomerStrand".equalsIgnoreCase(columnName)) {
         newEntry.customerStrand_ = value;
-      } else if ("IlmnStrand".equalsIgnoreCase(columnName)) {
+      } else if("IlmnStrand".equalsIgnoreCase(columnName)) {
         newEntry.ilmnStrand_ = value;
-      } else if ("IllumicodeSeq".equalsIgnoreCase(columnName)) {
+      } else if("IllumicodeSeq".equalsIgnoreCase(columnName)) {
         newEntry.illumiCodeSeq_ = value;
-      } else if ("TopGenomicSeq".equalsIgnoreCase(columnName)) {
+      } else if("TopGenomicSeq".equalsIgnoreCase(columnName)) {
         newEntry.topGenomicSeq_ = value;
-      } else if ("GenomeBuild".equalsIgnoreCase(columnName)) {
+      } else if("GenomeBuild".equalsIgnoreCase(columnName)) {
         newEntry.genomeBuild_ = value;
-      } else if ("Source".equalsIgnoreCase(columnName)) {
+      } else if("Source".equalsIgnoreCase(columnName)) {
         newEntry.source_ = value;
-      } else if ("SourceVersion".equalsIgnoreCase(columnName)) {
+      } else if("SourceVersion".equalsIgnoreCase(columnName)) {
         newEntry.sourceVersion_ = value;
-      } else if ("SourceStrand".equalsIgnoreCase(columnName)) {
+      } else if("SourceStrand".equalsIgnoreCase(columnName)) {
         newEntry.sourceStrand_ = value;
-      } else if ("SourceSeq".equalsIgnoreCase(columnName)) {
+      } else if("SourceSeq".equalsIgnoreCase(columnName)) {
         newEntry.sourceSeq_ = value;
-      } else if ("BeadSetId".equalsIgnoreCase(columnName)) {
+      } else if("BeadSetId".equalsIgnoreCase(columnName)) {
         newEntry.beadSetId_ = value;
       }
     }
@@ -307,5 +327,5 @@ public class ManifestFileAssayEntry {
   public void setBeadSetId(String beadSetId) {
     beadSetId_ = beadSetId;
   }
- 
+
 }

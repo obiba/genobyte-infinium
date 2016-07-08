@@ -1,20 +1,20 @@
 /*******************************************************************************
- * Copyright 2007(c) Génome Québec. All rights reserved.
- * 
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
+ * <p>
  * This file is part of GenoByte.
- * 
+ * <p>
  * GenoByte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
- * 
+ * <p>
  * GenoByte is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ * <p>
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.obiba.illumina.bitwise.client;
 
@@ -22,9 +22,7 @@ import org.obiba.bitwise.Field;
 import org.obiba.genobyte.GenotypingRecordStore;
 import org.obiba.genobyte.model.SnpAllele;
 import org.obiba.genobyte.report.AbstractPedFileReport;
-import org.obiba.genobyte.report.AbstractPedFileReport.Column;
 import org.obiba.illumina.bitwise.model.Sample.Gender;
-
 
 /**
  * Implementation of the ped file report for the infinium data model.
@@ -40,7 +38,7 @@ public class PedFileReport extends AbstractPedFileReport {
     linkColumnToField(Column.GENDER, "gender");
     linkColumnToField(Column.AFFECTION_STATUS, "group");
   }
-  
+
   @Override
   protected SnpAllele[] getAssayAlleles(GenotypingRecordStore assays, int index) {
     Field alleleA = assays.getStore().getField("alleleA");
@@ -53,16 +51,19 @@ public class PedFileReport extends AbstractPedFileReport {
 
   @Override
   protected Object convertColumnValue(Column c, Object value) {
-    switch (c) {
+    switch(c) {
       case GENDER:
-        Gender g = (Gender)value;
+        Gender g = (Gender) value;
         switch(g) {
-          case Male: return "1";
-          case Female: return "2";
-          default: return "0";
+          case Male:
+            return "1";
+          case Female:
+            return "2";
+          default:
+            return "0";
         }
       case AFFECTION_STATUS:
-        String group = (String)value;
+        String group = (String) value;
         if(group != null && group.equalsIgnoreCase("AFFECTED")) {
           return "2";
         }

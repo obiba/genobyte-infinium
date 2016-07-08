@@ -1,20 +1,20 @@
 /*******************************************************************************
- * Copyright 2007(c) Génome Québec. All rights reserved.
- * 
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
+ * <p>
  * This file is part of GenoByte.
- * 
+ * <p>
  * GenoByte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
- * 
+ * <p>
  * GenoByte is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ * <p>
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.obiba.illumina.bitwise.model;
 
@@ -29,37 +29,51 @@ import org.obiba.genobyte.model.Chromosome;
 import org.obiba.genobyte.model.DefaultAssayCallsStats;
 import org.obiba.genobyte.model.SnpAllele;
 
-
-@BitwiseRecord(storeAll=true,
-    dictionary={@DictionaryDef(name="calls", dictionaryClass=EnumDictionary.class, property={@DictionaryProperty(name="enumClassName", value="org.obiba.genobyte.model.SnpCall")})},
-    templates={@FieldTemplate(prefix="calls", dictionary="calls")}
-)
+@BitwiseRecord(storeAll = true,
+    dictionary = { @DictionaryDef(name = "calls", dictionaryClass = EnumDictionary.class, property = {
+        @DictionaryProperty(name = "enumClassName", value = "org.obiba.genobyte.model.SnpCall") }) },
+    templates = { @FieldTemplate(prefix = "calls", dictionary = "calls") })
 public class Assay extends DefaultAssayCallsStats {
 
   public enum Strand {
     TOP, BOT;
   }
 
-  @Stored(unique=true)
+  @Stored(unique = true)
   private Integer locusId = null;
+
   private String ilmnId = null;
+
   private String snpName = null;
+
   private Strand ilmnStrand = null;
+
   private SnpAllele alleleA = null;
+
   private SnpAllele alleleB = null;
-  
+
   private String addressAid = null;
+
   private String alleleAProbeSeq = null;
+
   private String addressBid = null;
+
   private String alleleBProbeSeq = null;
+
   private Chromosome chromosome = null;
+
   private Integer mapInfo = null;
+
   private String ploidy = null;
+
   private String species = null;
+
   private Strand customerStrand = null;
+
   private String illumiCodeSeq = null;
+
   private String topGenomicSeq = null;
-  
+
   public String toString() {
     return ToStringBuilder.reflectionToString(this);
   }

@@ -1,20 +1,20 @@
 /*******************************************************************************
- * Copyright 2007(c) Génome Québec. All rights reserved.
- * 
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
+ * <p>
  * This file is part of GenoByte.
- * 
+ * <p>
  * GenoByte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
- * 
+ * <p>
  * GenoByte is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ * <p>
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.obiba.illumina.bitwise.client;
 
@@ -32,26 +32,27 @@ import org.obiba.genobyte.inconsistency.ReproducibilityErrorCountingStrategy;
 import org.obiba.genobyte.inconsistency.ReproducibilityErrors;
 import org.obiba.genobyte.inconsistency.util.MaskedComparableRecordProvider;
 
-
 public class ReproErrorReportProducer implements ReportProducer {
 
   public enum ReproType {
     DNA,
     ASSAY
   }
-  
+
   private ReproType reproType;
-  
+
   public ReproErrorReportProducer(ReproType type) {
     this.reproType = type;
   }
 
   public String getReportType() {
     switch(reproType) {
-      case DNA: return "reproDna";
-      case ASSAY: return "reproAssay";
+      case DNA:
+        return "reproDna";
+      case ASSAY:
+        return "reproAssay";
     }
-    throw new IllegalStateException("unknown ReproType ["+this.reproType+"]");
+    throw new IllegalStateException("unknown ReproType [" + this.reproType + "]");
   }
 
   public boolean requiresOpenStore() {
@@ -78,7 +79,7 @@ public class ReproErrorReportProducer implements ReportProducer {
           report.setMask(assayQuery.getResult());
         }
         break;
-      case ASSAY: 
+      case ASSAY:
         store = context.getStore().getAssayRecordStore();
         provider = store.getComparableRecordProvider();
         report = new ReproAssayErrorReportingStrategy(output, store);
@@ -90,7 +91,7 @@ public class ReproErrorReportProducer implements ReportProducer {
         }
         break;
       default:
-        throw new IllegalStateException("unknown ReproType ["+this.reproType+"]");
+        throw new IllegalStateException("unknown ReproType [" + this.reproType + "]");
     }
 
     try {
@@ -107,7 +108,9 @@ public class ReproErrorReportProducer implements ReportProducer {
 
   private static abstract class ReproErrorReportingStrategy<K> implements ReproducibilityErrorCountingStrategy<K> {
     protected PrintStream output;
+
     protected GenotypingRecordStore<?, ?, ?> store;
+
     protected Field nameField;
 
     protected QueryResult mask;
@@ -128,14 +131,15 @@ public class ReproErrorReportProducer implements ReportProducer {
         errors.getInconsistencies().and(mask);
         errors.getTests().and(mask);
       }
-      printLine(getName(errors.getReferenceIndex()), getName(errors.getReplicateIndex()), errors.getInconsistencies().count(), errors.getTests().count());
+      printLine(getName(errors.getReferenceIndex()), getName(errors.getReplicateIndex()),
+          errors.getInconsistencies().count(), errors.getTests().count());
     }
 
-    private void printLine(Object ... values) {
-      for (int i = 0; i < values.length; i++) {
+    private void printLine(Object... values) {
+      for(int i = 0; i < values.length; i++) {
         Object value = values[i];
         if(value != null) {
-          if(i>0) this.output.print(',');
+          if(i > 0) this.output.print(',');
           this.output.print(value);
         }
       }

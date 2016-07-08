@@ -1,20 +1,20 @@
 /*******************************************************************************
- * Copyright 2007(c) Génome Québec. All rights reserved.
- * 
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
+ * <p>
  * This file is part of GenoByte.
- * 
+ * <p>
  * GenoByte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
- * 
+ * <p>
  * GenoByte is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ * <p>
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.obiba.illumina.bitwise.client;
 
@@ -30,13 +30,12 @@ import org.obiba.illumina.bitwise.InfiniumGenotypingStore;
 import org.obiba.illumina.bitwise.model.Assay;
 import org.obiba.illumina.bitwise.model.Sample;
 
-
 public class CreateStoreCommand implements CliCommand {
 
   public boolean requiresOpenStore() {
     return false;
   }
-  
+
   public boolean execute(Option opt, CliContext context) throws ParseException {
 
     if(context.getStore() != null) {
@@ -44,22 +43,23 @@ public class CreateStoreCommand implements CliCommand {
       context.getStore().close();
       context.clear();
     }
-    
+
     String name = opt.getValue();
     AnnotationStoreSchemaBuilder schemaBuilder = new AnnotationStoreSchemaBuilder();
     BitwiseStore samples;
     BitwiseStore assays;
     try {
-      String samplesName = name+"_samples";
+      String samplesName = name + "_samples";
       if(BitwiseStoreUtil.getInstance().exists(samplesName) == true) {
-        context.getOutput().println("A store named "+name+" already exists. Either use the existing store or delete it to create a new store with that name.");
+        context.getOutput().println("A store named " + name +
+            " already exists. Either use the existing store or delete it to create a new store with that name.");
         return false;
       }
-      context.getOutput().println("Creating store "+name+".");
-      samples = BitwiseStoreUtil.getInstance().create(name+"_samples", schemaBuilder.createSchema(Sample.class), 0);
-      assays = BitwiseStoreUtil.getInstance().create(name+"_assays", schemaBuilder.createSchema(Assay.class), 0);
-    } catch (Exception e) {
-      context.getOutput().println("An unexpected error occured while creating store ["+name+"]: " + e.getMessage());
+      context.getOutput().println("Creating store " + name + ".");
+      samples = BitwiseStoreUtil.getInstance().create(name + "_samples", schemaBuilder.createSchema(Sample.class), 0);
+      assays = BitwiseStoreUtil.getInstance().create(name + "_assays", schemaBuilder.createSchema(Assay.class), 0);
+    } catch(Exception e) {
+      context.getOutput().println("An unexpected error occured while creating store [" + name + "]: " + e.getMessage());
       e.printStackTrace(context.getOutput());
       return false;
     }
@@ -70,6 +70,7 @@ public class CreateStoreCommand implements CliCommand {
   }
 
   public Option getOption() {
-    return OptionBuilder.withDescription("create a new store for infinium data").withLongOpt("create").hasArg().withArgName("name").create('n');
+    return OptionBuilder.withDescription("create a new store for infinium data").withLongOpt("create").hasArg()
+        .withArgName("name").create('n');
   }
 }

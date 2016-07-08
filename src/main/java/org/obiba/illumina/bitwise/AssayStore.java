@@ -1,20 +1,20 @@
 /*******************************************************************************
- * Copyright 2007(c) Génome Québec. All rights reserved.
- * 
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
+ * <p>
  * This file is part of GenoByte.
- * 
+ * <p>
  * GenoByte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
- * 
+ * <p>
  * GenoByte is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ * <p>
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.obiba.illumina.bitwise;
 
@@ -39,7 +39,6 @@ import org.obiba.genobyte.model.SnpAllele;
 import org.obiba.illumina.bitwise.model.Assay;
 import org.obiba.illumina.io.ManifestFile;
 import org.obiba.illumina.io.ManifestFileAssayEntry;
-
 
 public class AssayStore extends GenotypingRecordStore<Integer, Assay, String> {
 
@@ -81,13 +80,13 @@ public class AssayStore extends GenotypingRecordStore<Integer, Assay, String> {
     a.setIlmnId(entry.getIlmnId());
     a.setSnpName(entry.getSnpName());
     a.setIlmnStrand(Assay.Strand.valueOf(entry.getIlmnStrand().toUpperCase()));
-    a.setAlleleA(SnpAllele.valueOf(entry.getSnp().substring(1,2)));
-    a.setAlleleB(SnpAllele.valueOf(entry.getSnp().substring(3,4)));
+    a.setAlleleA(SnpAllele.valueOf(entry.getSnp().substring(1, 2)));
+    a.setAlleleB(SnpAllele.valueOf(entry.getSnp().substring(3, 4)));
     a.setAddressAid(entry.getAddressAid());
     a.setAlleleAProbeSeq(entry.getAlleleAProbeSeq());
     a.setAddressBid(entry.getAddressBid());
     a.setAlleleBProbeSeq(entry.getAlleleBProbeSeq());
-    a.setChromosome(Chromosome.valueOf("chr"+entry.getChromosome().toUpperCase()));
+    a.setChromosome(Chromosome.valueOf("chr" + entry.getChromosome().toUpperCase()));
     a.setMapInfo(Integer.parseInt(entry.getMapInfo()));
     a.setPloidy(entry.getPloidy());
     a.setSpecies(entry.getSpecies());
@@ -99,7 +98,7 @@ public class AssayStore extends GenotypingRecordStore<Integer, Assay, String> {
     a.setTopGenomicSeq(entry.getTopGenomicSeq());
     return a;
   }
-  
+
   private static class KeyCache extends IntegerKeyCache<Assay> {
     public KeyCache(BitwiseRecordManager<Integer, Assay> a) {
       super(a);
@@ -114,6 +113,7 @@ public class AssayStore extends GenotypingRecordStore<Integer, Assay, String> {
   private class AssayComparator implements ComparableRecordProvider {
 
     QueryResult references = null;
+
     QueryResult[] replicates = null;
 
     private AssayComparator() {
@@ -134,7 +134,7 @@ public class AssayStore extends GenotypingRecordStore<Integer, Assay, String> {
         }
       }
       references = new BitVectorQueryResult(refs);
-      for (QueryResult replicate : this.replicates) {
+      for(QueryResult replicate : this.replicates) {
         if(replicate != null) replicate.andNot(references);
       }
     }

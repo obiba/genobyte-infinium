@@ -1,20 +1,20 @@
 /*******************************************************************************
- * Copyright 2007(c) Génome Québec. All rights reserved.
- * 
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
+ * <p>
  * This file is part of GenoByte.
- * 
+ * <p>
  * GenoByte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
- * 
+ * <p>
  * GenoByte is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ * <p>
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.obiba.illumina.bitwise.client;
 
@@ -34,21 +34,18 @@ import org.obiba.genobyte.inconsistency.util.MaskedRecordTrioProvider;
 import org.obiba.illumina.bitwise.InfiniumGenotypingStore;
 import org.obiba.illumina.bitwise.SampleStore;
 
-
 public class MendelianErrorReportProducer implements ReportProducer {
 
   public String getReportType() {
     return "mendel";
   }
 
-
   public boolean requiresOpenStore() {
     return true;
   }
 
-
   public void generateReport(CliContext context, String[] parameters, PrintStream output) {
-    SampleStore samples = ((InfiniumGenotypingStore)context.getStore()).getSampleRecordStore();
+    SampleStore samples = ((InfiniumGenotypingStore) context.getStore()).getSampleRecordStore();
 
     try {
       QueryExecution sampleQuery = ReportProducerUtil.findSampleQuery(context, parameters);
@@ -76,7 +73,9 @@ public class MendelianErrorReportProducer implements ReportProducer {
 
   private static class MendelianErrorReportingStrategy implements MendelianErrorCountingStrategy<String> {
     private PrintStream output;
+
     private GenotypingRecordStore store;
+
     private Field nameField;
 
     private QueryResult assayFilter;
@@ -95,14 +94,15 @@ public class MendelianErrorReportProducer implements ReportProducer {
         inconsistencies.and(assayFilter);
         tests.and(assayFilter);
       }
-      printLine(getName(errors.getChildIndex()), getName(errors.getMotherIndex()), getName(errors.getFatherIndex()), errors.getInconsistencies().count(), errors.getTests().count());
+      printLine(getName(errors.getChildIndex()), getName(errors.getMotherIndex()), getName(errors.getFatherIndex()),
+          errors.getInconsistencies().count(), errors.getTests().count());
     }
 
-    private void printLine(Object ... values) {
-      for (int i = 0; i < values.length; i++) {
+    private void printLine(Object... values) {
+      for(int i = 0; i < values.length; i++) {
         Object value = values[i];
         if(value != null) {
-          if(i>0) this.output.print(',');
+          if(i > 0) this.output.print(',');
           this.output.print(value);
         }
       }
@@ -115,7 +115,7 @@ public class MendelianErrorReportProducer implements ReportProducer {
       }
       return "";
     }
-    
+
     public void setAssayFilter(QueryResult assayFilter) {
       this.assayFilter = assayFilter;
     }
