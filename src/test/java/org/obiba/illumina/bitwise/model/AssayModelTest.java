@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2007(c) Génome Québec. All rights reserved.
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
  * 
  * This file is part of GenoByte.
  * 
@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.obiba.illumina.bitwise.model;
 
-import junit.framework.TestCase;
-
 import org.obiba.bitwise.annotation.AnnotationStoreSchemaBuilder;
 import org.obiba.bitwise.schema.FieldMetaData;
 import org.obiba.bitwise.schema.StoreSchema;
+
+import junit.framework.TestCase;
 
 public class AssayModelTest extends TestCase {
 

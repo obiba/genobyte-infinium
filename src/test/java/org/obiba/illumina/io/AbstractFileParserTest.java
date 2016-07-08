@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright 2007(c) G�nome Qu�bec. All rights reserved.
+ * Copyright 2007(c) Genome Quebec. All rights reserved.
  * 
  * This file is part of GenoByte.
  * 
