@@ -24,6 +24,12 @@
             <version>2.0-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.obiba.genobyte</groupId>
+            <artifactId>genobyte-cli</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- This is an optional GenoByte dependency, but our app requires it -->
         <dependency>
             <groupId>commons-cli</groupId>
