@@ -20,6 +20,12 @@
 
         <dependency>
             <groupId>org.obiba.genobyte</groupId>
+            <artifactId>genobyte-bdb</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.obiba.genobyte</groupId>
             <artifactId>genobyte-core</artifactId>
             <version>2.0-SNAPSHOT</version>
         </dependency>
